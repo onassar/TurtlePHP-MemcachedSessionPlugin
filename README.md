@@ -1,4 +1,4 @@
-TurtlePHP-SessionPlugin
+TurtlePHP-MemcachedSessionPlugin
 ======================
 
 ``` php
