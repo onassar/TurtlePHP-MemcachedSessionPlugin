@@ -4,7 +4,7 @@
      * Namespace
      * 
      */
-    namespace Plugin\Session;
+    namespace Plugin\MemcachedSession;
 
     /**
      * Data
@@ -29,7 +29,7 @@
 
     // Store
     \Plugin\Config::add(
-        'TurtlePHP-SessionPlugin',
+        'TurtlePHP-MemcachedSessionPlugin',
         array(
             'name' => $name,
             'servers' => $servers,

@@ -3,6 +3,6 @@ TurtlePHP-SessionPlugin
 
 ``` php
 require_once APP . '/vendors/PHP-SecureSessions/SMSession.class.php';
-require_once APP . '/plugins/TurtlePHP-SessionPlugin/Session.class.php';
-\Plugin\Session::open();
+require_once APP . '/plugins/TurtlePHP-MemcachedSessionPlugin/MemcachedSession.class.php';
+\Plugin\MemcachedSession::open();
 ```

@@ -20,14 +20,14 @@
     }
 
     /**
-     * Session
+     * MemcachedSession
      * 
      * Memcached session plugin for TurtlePHP
      * 
      * @author   Oliver Nassar <onassar@gmail.com>
      * @abstract
      */
-    abstract class Session
+    abstract class MemcachedSession
     {
         /**
          * _configPath
@@ -59,7 +59,7 @@
             if (is_null(self::$_reference) === true) {
                 require_once self::$_configPath;
                 $config = \Plugin\Config::retrieve();
-                $config = $config['TurtlePHP-SessionPlugin'];
+                $config = $config['TurtlePHP-MemcachedSessionPlugin'];
                 self::$_reference = (new \SMSession());
                 if (HTTPS === true) {
                     self::$_reference->setSecured();
