@@ -1,4 +1,4 @@
-TurtlePHP-SessionsPlugin
+TurtlePHP-SessionPlugin
 ======================
 
 ``` php
