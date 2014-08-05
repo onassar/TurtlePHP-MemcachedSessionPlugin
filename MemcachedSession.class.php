@@ -19,6 +19,11 @@
         );
     }
 
+    // Path constant
+    $info = pathinfo(__DIR__);
+    $parent = ($info['dirname']) . '/' . ($info['basename']);
+    DEFINE(__NAMESPACE__ . '\PLUGIN', $parent);
+
     /**
      * MemcachedSession
      * 
@@ -82,4 +87,10 @@
         {
             self::$_configPath = $path;
         }
+    }
+
+    // Config
+    $configPath = PLUGIN . '/config.inc.php';
+    if (is_file($configPath)) {
+        Emailer::setConfigPath($configPath);
     }
