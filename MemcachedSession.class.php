@@ -89,5 +89,5 @@
     $parent = ($info['dirname']) . '/' . ($info['basename']);
     $configPath = ($parent) . '/config.inc.php';
     if (is_file($configPath)) {
-        Emailer::setConfigPath($configPath);
+        MemcachedSession::setConfigPath($configPath);
     }
