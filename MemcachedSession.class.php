@@ -48,6 +48,17 @@
         protected static $_reference;
 
         /**
+         * getReference
+         * 
+         * @access public
+         * @return SMSession
+         */
+        public static function getReference()
+        {
+            return self::$_reference;
+        }
+
+        /**
          * open
          * 
          * @access public
