@@ -11,6 +11,9 @@
      * 
      */
 
+    // When does it expire
+    $expiry = 0;
+
     // Cookie/session naming
     $name = 'session';
 
@@ -31,6 +34,7 @@
     \Plugin\Config::add(
         'TurtlePHP-MemcachedSessionPlugin',
         array(
+            'expiry' => $expiry,
             'name' => $name,
             'servers' => $servers,
             'host' => $host

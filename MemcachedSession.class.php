@@ -61,6 +61,7 @@
         /**
          * open
          * 
+         * @see    http://stackoverflow.com/questions/13633433/php-memcached-based-sessions-should-garbage-collection-be-disabled
          * @access public
          * @static
          * @return void
@@ -76,6 +77,7 @@
                 if (HTTPS === true) {
                     self::$_reference->setSecured();
                 }
+                self::$_reference->setExpiry($config['expiry']);
                 self::$_reference->setName($config['name']);
                 self::$_reference->setHost($config['host']);
                 self::$_reference->addServers($config['servers']);
