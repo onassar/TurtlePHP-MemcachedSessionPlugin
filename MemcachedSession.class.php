@@ -32,8 +32,8 @@
         /**
          * _configPath
          *
-         * @var    string
-         * @access protected
+         * @var     string
+         * @access  protected
          * @static
          */
         protected static $_configPath = 'config.default.inc.php';
@@ -41,8 +41,8 @@
         /**
          * _reference
          *
-         * @var    SMSession
-         * @access public
+         * @var     SMSession
+         * @access  public
          * @static
          */
         protected static $_reference;
@@ -50,8 +50,8 @@
         /**
          * getReference
          * 
-         * @access public
-         * @return SMSession
+         * @access  public
+         * @return  SMSession
          */
         public static function getReference()
         {
@@ -61,10 +61,10 @@
         /**
          * open
          * 
-         * @see    http://stackoverflow.com/questions/13633433/php-memcached-based-sessions-should-garbage-collection-be-disabled
-         * @access public
+         * @see     http://stackoverflow.com/questions/13633433/php-memcached-based-sessions-should-garbage-collection-be-disabled
+         * @access  public
          * @static
-         * @return void
+         * @return  void
          */
         public static function open()
         {
@@ -88,9 +88,9 @@
         /**
          * setConfigPath
          * 
-         * @access public
-         * @param  string $path
-         * @return void
+         * @access  public
+         * @param   string $path
+         * @return  void
          */
         public static function setConfigPath($path)
         {
@@ -102,6 +102,6 @@
     $info = pathinfo(__DIR__);
     $parent = ($info['dirname']) . '/' . ($info['basename']);
     $configPath = ($parent) . '/config.inc.php';
-    if (is_file($configPath)) {
+    if (is_file($configPath) === true) {
         MemcachedSession::setConfigPath($configPath);
     }
