@@ -73,7 +73,7 @@
                 $config = \Plugin\Config::retrieve(
                     'TurtlePHP-MemcachedSessionPlugin'
                 );
-                self::$_reference = (new \SMSession());
+                self::$_reference = new \SMSession();
                 if (HTTPS === true) {
                     self::$_reference->setSecured();
                 }
