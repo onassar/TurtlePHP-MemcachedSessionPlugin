@@ -30,6 +30,15 @@
     abstract class MemcachedSession
     {
         /**
+         * _client
+         *
+         * @var     SMSession
+         * @access  public
+         * @static
+         */
+        protected static $_client;
+
+        /**
          * _configPath
          *
          * @var     string
@@ -39,23 +48,14 @@
         protected static $_configPath = 'config.default.inc.php';
 
         /**
-         * _reference
-         *
-         * @var     SMSession
-         * @access  public
-         * @static
-         */
-        protected static $_reference;
-
-        /**
-         * getReference
+         * getClient
          * 
          * @access  public
          * @return  SMSession
          */
-        public static function getReference()
+        public static function getClient()
         {
-            return self::$_reference;
+            return self::$_client;
         }
 
         /**
@@ -68,20 +68,20 @@
          */
         public static function open()
         {
-            if (is_null(self::$_reference) === true) {
+            if (is_null(self::$_client) === true) {
                 require_once self::$_configPath;
                 $config = \Plugin\Config::retrieve(
                     'TurtlePHP-MemcachedSessionPlugin'
                 );
-                self::$_reference = new \SMSession();
+                self::$_client = new \SMSession();
                 if (HTTPS === true) {
-                    self::$_reference->setSecured();
+                    self::$_client->setSecured();
                 }
-                self::$_reference->setExpiry($config['expiry']);
-                self::$_reference->setName($config['name']);
-                self::$_reference->setHost($config['host']);
-                self::$_reference->addServers($config['servers']);
-                self::$_reference->open();
+                self::$_client->setExpiry($config['expiry']);
+                self::$_client->setName($config['name']);
+                self::$_client->setHost($config['host']);
+                self::$_client->addServers($config['servers']);
+                self::$_client->open();
             }
         }
 
