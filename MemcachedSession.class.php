@@ -32,8 +32,8 @@
         /**
          * _client
          *
-         * @var     SMSession
          * @access  public
+         * @var     SMSession
          * @static
          */
         protected static $_client;
@@ -41,8 +41,8 @@
         /**
          * _configPath
          *
-         * @var     string
          * @access  protected
+         * @var     string
          * @static
          */
         protected static $_configPath = 'config.default.inc.php';
