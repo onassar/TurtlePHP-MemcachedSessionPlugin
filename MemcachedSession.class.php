@@ -3,59 +3,110 @@
     // namespace
     namespace Plugin;
 
-    // dependency check
-    if (class_exists('\\Plugin\\Config') === false) {
-        throw new \Exception(
-            '*Config* class required. Please see ' .
-            'https://github.com/onassar/TurtlePHP-ConfigPlugin'
-        );
-    }
-
-    // dependency check
-    if (class_exists('\\SMSession') === false) {
-        throw new \Exception(
-            '*SMSession* class required. Please see ' .
-            'https://github.com/onassar/PHP-SecureSessions'
-        );
-    }
-
     /**
      * MemcachedSession
      * 
-     * Memcached session plugin for TurtlePHP
+     * Memcached Session plugin for TurtlePHP.
      * 
      * @author  Oliver Nassar <onassar@gmail.com>
      * @abstract
+     * @extends Base
      */
-    abstract class MemcachedSession
+    abstract class MemcachedSession extends Base
     {
         /**
          * _client
          *
          * @access  public
-         * @var     SMSession
+         * @var     null|\SMSession (default: null)
          * @static
          */
-        protected static $_client;
+        protected static $_client = null;
 
         /**
          * _configPath
          *
          * @access  protected
-         * @var     string
+         * @var     string (default: 'config.default.inc.php')
          * @static
          */
         protected static $_configPath = 'config.default.inc.php';
 
         /**
+         * _initiated
+         *
+         * @access  protected
+         * @var     bool (default: false)
+         * @static
+         */
+        protected static $_initiated = false;
+
+        /**
+         * _opened
+         *
+         * @access  protected
+         * @var     bool (default: false)
+         * @static
+         */
+        protected static $_opened = false;
+
+        /**
+         * _checkDependencies
+         * 
+         * @access  protected
+         * @static
+         * @return  void
+         */
+        protected static function _checkDependencies(): void
+        {
+            static::_checkConfigPluginDependency();
+            static::_checkSMSessionDependency();
+        }
+
+        /**
+         * _setOpened
+         * 
+         * @access  protected
+         * @static
+         * @return  void
+         */
+        protected static function _setOpened(): void
+        {
+            static::$_opened = true;
+        }
+
+        /**
+         * _setupClient
+         * 
+         * @access  protected
+         * @static
+         * @return  void
+         */
+        protected static function _setupClient(): void
+        {
+            $client = new \SMSession();
+            if (HTTPS === true) {
+                $client->setSecured();
+            }
+            $configData = static::_getConfigData();
+            $client->setExpiry($configData['expiry']);
+            $client->setName($configData['name']);
+            $client->setHost($configData['host']);
+            $client->addServers($configData['servers']);
+            $client->open();
+            static::$_client = $client;
+        }
+
+        /**
          * getClient
          * 
          * @access  public
-         * @return  SMSession
+         * @return  \SMSession
          */
-        public static function getClient()
+        public static function getClient(): \SMSession
         {
-            return self::$_client;
+            $client = static::$_client;
+            return $client;
         }
 
         /**
@@ -64,44 +115,37 @@
          * @see     http://stackoverflow.com/questions/13633433/php-memcached-based-sessions-should-garbage-collection-be-disabled
          * @access  public
          * @static
-         * @return  void
+         * @return  bool
          */
-        public static function open()
+        public static function open(): bool
         {
-            if (is_null(self::$_client) === true) {
-                require_once self::$_configPath;
-                $config = \Plugin\Config::retrieve(
-                    'TurtlePHP-MemcachedSessionPlugin'
-                );
-                self::$_client = new \SMSession();
-                if (HTTPS === true) {
-                    self::$_client->setSecured();
-                }
-                self::$_client->setExpiry($config['expiry']);
-                self::$_client->setName($config['name']);
-                self::$_client->setHost($config['host']);
-                self::$_client->addServers($config['servers']);
-                self::$_client->open();
+            if (static::$_opened === true) {
+                return false;
             }
+            static::_setOpened();
+            static::_setupClient();
+            return true;
         }
 
         /**
-         * setConfigPath
+         * init
          * 
          * @access  public
-         * @param   string $path
-         * @return  void
+         * @static
+         * @return  bool
          */
-        public static function setConfigPath($path)
+        public static function init(): bool
         {
-            self::$_configPath = $path;
+            if (static::$_initiated === true) {
+                return false;
+            }
+            parent::init();
+            return true;
         }
     }
 
-    // Config
+    // Config path loading
     $info = pathinfo(__DIR__);
     $parent = ($info['dirname']) . '/' . ($info['basename']);
     $configPath = ($parent) . '/config.inc.php';
-    if (is_file($configPath) === true) {
-        MemcachedSession::setConfigPath($configPath);
-    }
+    MemcachedSession::setConfigPath($configPath);
