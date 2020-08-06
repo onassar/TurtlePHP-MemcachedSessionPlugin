@@ -148,4 +148,4 @@
     $info = pathinfo(__DIR__);
     $parent = ($info['dirname']) . '/' . ($info['basename']);
     $configPath = ($parent) . '/config.inc.php';
-    MemcachedSession::setConfigPath($configPath);
+    \Plugin\MemcachedSession::setConfigPath($configPath);
