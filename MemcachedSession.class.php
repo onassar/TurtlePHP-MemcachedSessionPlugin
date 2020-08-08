@@ -16,7 +16,7 @@
     {
         /**
          * _client
-         *
+         * 
          * @access  public
          * @var     null|\SMSession (default: null)
          * @static
@@ -25,7 +25,7 @@
 
         /**
          * _configPath
-         *
+         * 
          * @access  protected
          * @var     string (default: 'config.default.inc.php')
          * @static
@@ -34,7 +34,7 @@
 
         /**
          * _initiated
-         *
+         * 
          * @access  protected
          * @var     bool (default: false)
          * @static
@@ -43,7 +43,7 @@
 
         /**
          * _opened
-         *
+         * 
          * @access  protected
          * @var     bool (default: false)
          * @static
