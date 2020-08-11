@@ -1,7 +1,7 @@
 <?php
 
     // namespace
-    namespace Plugin;
+    namespace TurtlePHP\Plugin;
 
     /**
      * MemcachedSession
@@ -148,4 +148,4 @@
     $info = pathinfo(__DIR__);
     $parent = ($info['dirname']) . '/' . ($info['basename']);
     $configPath = ($parent) . '/config.inc.php';
-    \Plugin\MemcachedSession::setConfigPath($configPath);
+    \TurtlePHP\Plugin\MemcachedSession::setConfigPath($configPath);

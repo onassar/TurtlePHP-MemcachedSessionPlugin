@@ -1,12 +1,6 @@
 <?php
 
     /**
-     * Namespace
-     * 
-     */
-    namespace Plugin\MemcachedSession;
-
-    /**
      * Plugin Config Data
      * 
      */
@@ -23,4 +17,4 @@
      * 
      */
     $key = 'TurtlePHP-MemcachedSessionPlugin';
-    \Plugin\Config::add($key, $pluginConfigData);
+    TurtlePHP\Plugin\Config::set($key, $pluginConfigData);
